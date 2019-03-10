@@ -1,0 +1,17 @@
+{
+  "name": "rx-flux",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "rx": "^4.1.0",
+    "rxjs": "^6.4.0"
+  }
+}
