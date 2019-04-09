@@ -19,8 +19,8 @@ createStore(defaultValue)
 /**
  * 用于向一个 store 发出一个 action
  *  @params changeFn(state) - 改变 store 的值的回调函数，参数 state 用于获取当前 store 中的值。
- * @params store - 向哪个 store 发出 action
- * @return store
+ *  @params store - 向哪个 store 发出 action
+ *  @return store
 **/
 emitAction(changeFn, store)
 /**
