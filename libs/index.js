@@ -3,7 +3,9 @@ const Rx = require('rxjs/Rx');
 function createStore(defaultValue = null) {
   const action$ = new Rx.Subject();
   const state$ = new Rx.BehaviorSubject(defaultValue);
-  const observable = action$.map(changeFn => state => changeFn(state)).scan((state, changeFn) => changeFn(state), defaultValue);
+  const observable = action$
+    .map(changeFn => state => changeFn(state))
+    .scan((state, changeFn) => changeFn(state), defaultValue);
   const subscribe$ = observable.subscribe(state$);
   return {
     action$,
@@ -21,8 +23,13 @@ function emitAction(changeFn, store) {
   return store;
 }
 
+function subscribeValue(getValueFn, store) {
+  return store.state$.subscribe(getValueFn);
+}
+
 module.exports= {
   createStore,
   getValue,
+  subscribeValue,
   emitAction
 }

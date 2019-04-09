@@ -4,6 +4,7 @@ const should = chai.should();
 const {
   createStore,
   getValue,
+  subscribeValue,
   emitAction
 } = require('../libs/index');
 
@@ -30,13 +31,20 @@ describe('test emitAction and getValue', () => {
     emitAction(() => 5, testStore);
     getValue(testStore).should.equal(5);
   });
+
   it('emitAction from before state', () => {
     const testStore = createStore(0);
-    getValue(testStore).should.equal(0);
     getValue(testStore).should.equal(0);
     emitAction(state => state + 1, testStore);
     getValue(testStore).should.equal(1);
     emitAction(state => state + 1,testStore);
     getValue(testStore).should.equal(2);
+  });
+
+  describe('test subscribe value', () => {
+    let defaultValue = 0;
+    const testStore = createStore(defaultValue);
+    subscribeValue(value => {value.should.equal(defaultValue)}, testStore);
+    emitAction(state => {return defaultValue = state + 1}, testStore);
   });
 })
