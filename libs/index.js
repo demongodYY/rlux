@@ -11,7 +11,7 @@ function createStore(defaultValue = null) {
     action$,
     state$,
     subscribe$
-  };  
+  };
 }
 
 function getValue(store) {
@@ -27,7 +27,7 @@ function subscribeValue(getValueFn, store) {
   return store.state$.subscribe(getValueFn);
 }
 
-module.exports= {
+module.exports = {
   createStore,
   getValue,
   subscribeValue,
