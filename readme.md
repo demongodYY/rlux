@@ -29,4 +29,11 @@ emitAction(changeFn, store)
  *  @return value - store 中当前的值
 **/
 getValue(store)
+/**
+ * 用于获取一个 store 中当前的值
+ *  @params getValueFn - 获取订阅值的回调函数
+ *  @params store - 订阅哪个 store 的值
+ *  @return subscirbe - 返回 state 的订阅
+**/
+subscribeValue(getValueFn, store)
 ```
