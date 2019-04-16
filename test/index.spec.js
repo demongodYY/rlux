@@ -5,7 +5,8 @@ const {
   createStore,
   getValue,
   subscribeValue,
-  emitAction
+  emitAction,
+  emitAsyncAction
 } = require('../libs/index');
 
 describe('hello spec', () => {
@@ -37,14 +38,38 @@ describe('test emitAction and getValue', () => {
     getValue(testStore).should.equal(0);
     emitAction(state => state + 1, testStore);
     getValue(testStore).should.equal(1);
-    emitAction(state => state + 1,testStore);
+    emitAction(state => state + 1, testStore);
     getValue(testStore).should.equal(2);
   });
 
   describe('test subscribe value', () => {
     let defaultValue = 0;
     const testStore = createStore(defaultValue);
-    subscribeValue(value => {value.should.equal(defaultValue)}, testStore);
-    emitAction(state => {return defaultValue = state + 1}, testStore);
+    subscribeValue(value => {
+      value.should.equal(defaultValue)
+    }, testStore);
+    emitAction(state => {
+      return defaultValue = state + 1
+    }, testStore);
+  });
+})
+
+describe('test async action emit', () => {
+  it('emit async action change value', () => {
+    let passValue = 0;
+    const testStore = createStore(passValue);
+    subscribeValue(value => value.should.equal(passValue), testStore);
+    const promise = new Promise((resolve) => {
+      passValue += 1;
+      resolve(passValue);
+    })
+    emitAsyncAction(promise, (state, res) => {
+      console.log(222, state);
+      return res
+    }, testStore);
+    emitAsyncAction(promise, (state, res) => {
+      console.log(222, state);
+      return res
+    }, testStore);
   });
 })
