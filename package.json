@@ -1,6 +1,6 @@
 {
   "name": "rluxjs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author":"demongodYY <yyuuqqii@outlook.com> (https://github.com/demongodYY)",
   "description": "",
   "main": "index.js",
@@ -12,7 +12,6 @@
     "test": "mocha test/**/*.spec.js --reporter dot --exit",
     "test-w": "mocha test/**/*.spec.js --reporter dot -w"
   },
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "rx": "^4.1.0",

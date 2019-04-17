@@ -29,47 +29,59 @@ describe('test emitAction and getValue', () => {
   it('emitAction to change value', () => {
     const testStore = createStore(0);
     getValue(testStore).should.equal(0);
-    emitAction(() => 5, testStore);
+    emitAction(testStore, () => 5);
     getValue(testStore).should.equal(5);
   });
 
   it('emitAction from before state', () => {
     const testStore = createStore(0);
     getValue(testStore).should.equal(0);
-    emitAction(state => state + 1, testStore);
+    emitAction(testStore, state => state + 1);
     getValue(testStore).should.equal(1);
-    emitAction(state => state + 1, testStore);
+    emitAction(testStore, state => state + 1);
     getValue(testStore).should.equal(2);
   });
 
   describe('test subscribe value', () => {
     let defaultValue = 0;
     const testStore = createStore(defaultValue);
-    subscribeValue(value => {
+    subscribeValue(testStore, value => {
       value.should.equal(defaultValue)
-    }, testStore);
-    emitAction(state => {
+    });
+    emitAction(testStore, state => {
       return defaultValue = state + 1
-    }, testStore);
+    });
+
+    emitAction(testStore, state => {
+      return defaultValue = state + 1
+    });
   });
 })
 
 describe('test async action emit', () => {
-  it('emit async action change value', () => {
-    let passValue = 0;
-    const testStore = createStore(passValue);
-    subscribeValue(value => value.should.equal(passValue), testStore);
+  it('emit async action with changeFn', () => {
+    let defaultValue = 0;
+    const testStore = createStore(defaultValue);
+    subscribeValue(testStore, value => value.should.equal(defaultValue));
     const promise = new Promise((resolve) => {
-      passValue += 1;
-      resolve(passValue);
+      resolve(1);
     })
-    emitAsyncAction(promise, (state, res) => {
-      console.log(222, state);
-      return res
-    }, testStore);
-    emitAsyncAction(promise, (state, res) => {
-      console.log(222, state);
-      return res
-    }, testStore);
+    emitAsyncAction(testStore, promise, (state, res) => {
+      return defaultValue = state + res;
+    });
+    emitAsyncAction(testStore, promise, (state, res) => {
+      return defaultValue = state + res
+    });
   });
+
+  it('emit async action without changeFn', () => {
+    let defaultValue = 0;
+    const testStore = createStore(defaultValue);
+    subscribeValue(testStore, value => value.should.equal(defaultValue));
+    const promise = new Promise((resolve) => {
+      defaultValue = 5;
+      resolve(defaultValue);
+    })
+    emitAsyncAction(testStore, promise);
+  })
 })
