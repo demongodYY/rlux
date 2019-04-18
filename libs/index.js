@@ -14,7 +14,7 @@ function createStore(defaultValue = null) {
     changeFn
   }) => changeFn(state), defaultValue);
 
-  const asyncObservable = asyncAction$.flatMap(({
+  const asyncObservable = asyncAction$.switchMap(({
       changeFn,
       promise
     }) => from(promise)
