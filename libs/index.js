@@ -1,6 +1,6 @@
 const Rx = require('rxjs/Rx');
 const {
-  from ,
+  from,
   merge
 } = require('rxjs');
 
@@ -22,6 +22,7 @@ function createStore(defaultValue = null) {
   )
 
   const subscribe$ = merge(observable, asyncObservable).subscribe(state$);
+
   return {
     action$,
     asyncAction$,
