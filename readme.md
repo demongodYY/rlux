@@ -42,9 +42,9 @@ emitAsyncAction(store, promise, [changeFn])
 getValue(store)
 
 /**
- * 用于获取一个 store 中当前的值
+ * 用于订阅一个 store 中当前的值
  *  @params store - 订阅哪个 store 的值
- *  @params getValueFn(value) - 获取订阅值的回调函数, value 为其中的值
+ *  @params getValueFn(value) - 获取订阅值的回调函数, 在每次 emit 新值时触发。value 为其中的值
  *  @return subscirbe - 返回 state 的订阅
 **/
 subscribeValue(store, getValueFn)

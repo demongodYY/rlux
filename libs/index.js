@@ -1,6 +1,6 @@
 const Rx = require('rxjs/Rx');
 const {
-  of ,
+  from ,
   merge
 } = require('rxjs');
 
@@ -17,8 +17,7 @@ function createStore(defaultValue = null) {
   const asyncObservable = asyncAction$.flatMap(({
       changeFn,
       promise
-    }) => of (promise)
-    .flatMap((promise) => promise)
+    }) => from(promise)
     .map((res) => changeFn(state$.getValue(), res))
   )
 
